@@ -1,3 +1,6 @@
 #!/bin/bash
-service httpd start
 
+systemctl enable nginx
+systemctl start nginx
+
+echo "Hello khanh trung!" > /home/ec2-user/hello_world.txt
