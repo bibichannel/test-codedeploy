@@ -3,15 +3,13 @@ os: linux
 files:
   - source: /index.html
     destination: /usr/share/nginx/html
-    retain: true
     overwrite: true
     user: root
   - source: /nginx.conf
     destination: /etc/nginx/conf.d/
-    retain: true
     overwrite: true
     user: root
-# file_exists_behavior: OVERWRITE
+file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
