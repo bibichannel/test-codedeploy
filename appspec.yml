@@ -1,18 +1,25 @@
 version: 0.0
 os: linux
 files:
-  - source: /index.html
-    destination: /var/www/html/
+  - source: .
+    destination: /var/www/html/assetz-serverside-3/
+    user: root
+    overwrite: true
+# file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies
-      timeout: 300
+    - location: scripts/prepare.sh
+      name: prepare_script
       runas: root
-    - location: scripts/start_server
+    - location: scripts/install.sh
+      name: install_script
+      runas: ec2-user
+  AfterInstall:
+    - location: scripts/after_install.sh
       timeout: 300
-      runas: root
-  ApplicationStop:
-    - location: scripts/stop_server
+      runas: ec2-user
+  ApplicationStart:
+    - location: scripts/start_server.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
 
